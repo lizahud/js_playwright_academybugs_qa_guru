@@ -1,137 +1,128 @@
 import { test, expect } from '@playwright/test';
+import { CommentBuilder } from '../page_object/helpers/builder/index';
+import { App } from '../page_object/pages/appPage';
+
 
 const URL_UI = 'https://academybugs.com/find-bugs/';
+const BUG_ERROR_MESSAGE = 'What did you find out?';
+const CRASH_BUG_ERROR_MESSAGE = 'You found a crash bug, examine the page';
+const FIRST_BUG_ERROR_MESSAGE = '#1 Awesome! You found a bug. Pretty easy right?'
+let app;
 
-test('test', async ({ page }) => {
-  await page.goto(URL_UI, { timeout: 120000});
-  await page.getByRole('link', { name: '50' }).click();
-  await page.getByRole('heading', { name: 'What did you find out?'}, { timeout: 90000}).click();
-  await expect(page.locator('#bug-popup')).toContainText('What did you find out?');
-  await page.locator('#close-popup').click();
+
+test.describe('Тесты в рамках ДЗ №16 по academybugs.', () => {
+
+	test.beforeEach(async ({ page }) => {
+    app = new App(page);
+		await app.main.open(URL_UI);
+	});
+
+  test('Выбранное количество результатов отображается в соответствии с нажатыми кнопками.', async ({ page }) => {
+    app = new App(page);
+
+    await app.main.clickNextPaginationPage();
+    await expect(app.main.bugOverlay).toContainText(CRASH_BUG_ERROR_MESSAGE);
+  });
+
+  test('Изображение продукта полностью заполняет поле, как и все остальные изображения продуктов.', async ({ page }) => {
+    app = new App(page);
+
+    await app.main.clickImageProduct();
+    await expect(app.main.bugPopup).toContainText(BUG_ERROR_MESSAGE);
+  });
+
+  test('Краткое описание и описание продукта на английском языке.', async ({ page }) => {
+    app = new App(page);
+
+    await app.main.gotoSelectOptions();
+    await app.product.clickDescriptionDetails();
+    await expect(app.main.bugPopup).toContainText(BUG_ERROR_MESSAGE);
+  });
+
+  test('Желтый и оранжевый цвета написаны правильно.', async ({ page }) => {
+    app = new App(page);
+
+    await app.main.gotoSelectOptions();
+    await app.product.chooseOrangProductColor();
+    await expect(app.main.bugPopup).toContainText(BUG_ERROR_MESSAGE);
+  });
+
+  test('Комментарий размещается под продуктом.', async ({ page }) => {
+    app = new App(page);
+
+    const commentData = new CommentBuilder()
+    .addComment()
+    .addName()
+    .addEmail()
+    .addWebsite()
+    .generateCommentData();
+
+    await app.main.gotoSelectOptions();
+    await app.product.createComment(commentData.comment, commentData.name, commentData.email, commentData.website)
+    await expect(app.main.crashBugOverlay).toContainText(CRASH_BUG_ERROR_MESSAGE);
+  });
+
+  test('Ссылка на производителя показывает соответствующую страницу.', async ({ page }) => {
+    app = new App(page);
+
+    await app.main.gotoSelectOptions();
+    await app.product.clickManufacturerDetails();
+    await expect(app.main.bugPopup).toContainText(BUG_ERROR_MESSAGE);
+  });
+
+  test('Значок Twitter должен перенаправлять пользователя в Twitter.', async ({ page }) => {
+    app = new App(page);
+
+    await app.main.gotoSelectOptions();
+    await app.product.clickXIcon();
+    await expect(app.main.bugPopup).toContainText(BUG_ERROR_MESSAGE);
+  });
+
+  test('Валюта изменена, как и ожидалось.', async ({ page }) => {
+    app = new App(page);
+
+    await app.main.gotoSelectOptions();
+    await app.product.selectEurCurrency();
+    await expect(app.main.crashBugOverlay).toContainText(CRASH_BUG_ERROR_MESSAGE);
+  });
+
+  test('Кнопка «Войти» находится над нижним колонтитулом.', async ({ page }) => {
+    app = new App(page);
+
+    await app.main.gotoSelectOptions();
+    await app.product.clickSignInButton();
+    await expect(app.main.bugPopup).toContainText(BUG_ERROR_MESSAGE);
+  });
+
+  test('Отображается список товаров в выбранном ценовом диапазоне.', async ({ page }) => {
+    app = new App(page);
+
+    await app.main.gotoSelectOptions();
+    await app.product.clickFilterBySmallPrice();
+    await expect(app.main.bugPopup).toContainText(BUG_ERROR_MESSAGE);
+  });
+
+  test('Надпись кнопки «Войти» располагается по центру вертикально.', async ({ page }) => {
+    app = new App(page);
+
+    await app.main.gotoLoginForPricing();
+    await app.account.clickAccountSignInButton();
+    await expect(app.main.firstBugOverlay).toContainText(FIRST_BUG_ERROR_MESSAGE);
+  });
+
+  test('Текст в разделе «Новый пользователь» на английском языке.', async ({ page }) => {
+    app = new App(page);
+
+    await app.main.gotoLoginForPricing();
+    await app.account.clickAccountSubheader();
+    await expect(app.main.bugPopup).toContainText(BUG_ERROR_MESSAGE);
+  });
+
+  test('Заголовок поля пароля выравнивается так же, как и поле выше.', async ({ page }) => {
+    app = new App(page);
+
+    await app.main.gotoLoginForPricing();
+    await app.account.clickAccountPasswordLabel();
+    await expect(app.main.bugPopup).toContainText(BUG_ERROR_MESSAGE);
+  });
 });
-
-// test('test', async ({ page }) => {
-//   await page.goto('https://academybugs.com/find-bugs/');
-//   await page.locator('#ec_product_image_effect_4281370').getByRole('link').click();
-//   await page.getByRole('heading', { name: 'What did you find out?' }).click({
-//     button: 'right'
-//   });
-//   await expect(page.locator('#bug-popup')).toContainText('What did you find out?');
-//   await expect(page.getByText('× What did you find out? What')).toBeVisible();
-//   await page.locator('#close-popup').click();
-//   await page.getByRole('link', { name: 'Dark Grey Jeans' }).click();
-// });
-
-// test('test', async ({ page }) => {
-//   await page.goto('https://academybugs.com/find-bugs/');
-//   await page.locator('#ec_product_image_3981370').getByRole('link', { name: 'Select Options' }).click();
-//   await page.locator('#post-6190 form').getByText('Nam nec tellus a odio').click();
-//   await expect(page.locator('#bug-popup')).toContainText('What did you find out?');
-//   await page.locator('#close-popup').click();
-// });
-
-// test('test', async ({ page }) => {
-//   await page.goto('https://academybugs.com/find-bugs/');
-//   await page.getByRole('link', { name: 'Professional Suit' }).click();
-//   await page.getByRole('img', { name: 'Orang' }).click();
-//   await page.getByRole('img', { name: 'Yelow' }).click();
-//   await page.getByRole('img', { name: 'Orang' }).click();
-//   await page.getByText('Orang').click();
-//   await expect(page.locator('#bug-popup')).toContainText('What did you find out?');
-//   await page.locator('#close-popup').click();
-// });
-
-// test('test', async ({ page }) => {
-//   await page.goto('https://academybugs.com/find-bugs/');
-//   await page.locator('#ec_product_image_3981370').getByRole('link', { name: 'Select Options' }).click();
-//   await page.goto('https://academybugs.com/store/professional-suit/');
-//   await page.getByRole('textbox', { name: 'Comment' }).click();
-//   await page.getByRole('textbox', { name: 'Comment' }).fill('1111');
-//   await page.getByRole('textbox', { name: 'Name*' }).click();
-//   await page.getByRole('textbox', { name: 'Name*' }).fill('111');
-//   await page.getByRole('textbox', { name: 'Email*' }).click();
-//   await page.getByRole('textbox', { name: 'Email*' }).fill('11');
-//   await page.getByRole('textbox', { name: 'Website' }).click();
-//   await page.getByRole('textbox', { name: 'Website' }).fill('11');
-//   await page.getByRole('button', { name: 'Post Comment' }).click();
-//   await expect(page.locator('#bug-popup')).toContainText('What did you find out?');
-//   await page.locator('#close-popup').click();
-// });
-
-// test('test', async ({ page }) => {
-//   await page.goto('https://academybugs.com/find-bugs/');
-//   await page.getByRole('link', { name: 'Professional Suit' }).click();
-//   await page.getByRole('link', { name: 'L4 Development' }).click();
-//   await page.goto('https://academybugs.com/extra/stored/l4-development/');
-//   await expect(page.locator('#bug-popup')).toContainText('What did you find out?');
-//   await page.locator('#close-popup').click();
-// });
-
-// test('test', async ({ page }) => {
-//   await page.goto('https://academybugs.com/find-bugs/');
-//   await page.getByRole('link', { name: 'Professional Suit' }).click();
-//   const page1Promise = page.waitForEvent('popup');
-//   await page.getByRole('link', { name: 'X', exact: true }).click();
-//   const page1 = await page1Promise;
-//   await expect(page.locator('#bug-popup')).toContainText('What did you find out?');
-// });
-
-
-// test('test', async ({ page }) => {
-//   await page.goto('https://academybugs.com/find-bugs/');
-//   await page.getByRole('link', { name: 'Professional Suit' }).click();
-//   await page.locator('#ec_currency_conversion').selectOption('EUR');
-//   await page.locator('#ec_currency_conversion').selectOption('GBP');
-//   await page.getByRole('heading', { name: 'You found a crash bug,' }).nth(1).click();
-//   await page.locator('#ec_currency_conversion').selectOption('JPY');
-//   await expect(page.locator('#bug-popup')).toContainText('What did you find out?');
-// });
-
-
-// test('test', async ({ page }) => {
-//   await page.goto('https://academybugs.com/find-bugs/');
-//   await page.getByRole('link', { name: 'Professional Suit' }).click();
-//   await page.getByRole('button', { name: 'SIGN IN' }).click();
-//   await expect(page.locator('#bug-popup')).toContainText('What did you find out?');
-// });
-
-
-
-// test('test', async ({ page }) => {
-//   await page.goto('https://academybugs.com/find-bugs/');
-//   await page.getByRole('link', { name: 'Professional Suit' }).click();
-//   await page.getByRole('link', { name: '$15.00 - $19.99 (1)' }).click();
-//   await expect(page.locator('#bug-popup')).toContainText('What did you find out?');
-//   await page.locator('#close-popup').click();
-// });
-
-
-// test('test', async ({ page }) => {
-//   await page.goto('https://academybugs.com/find-bugs/');
-//   await page.getByRole('link', { name: 'Login for Pricing' }).click();
-//   await page.goto('https://academybugs.com/account/');
-//   await page.getByRole('button', { name: 'SIGN IN' }).click();
-//   await expect(page.locator('#popmake-4406')).toContainText('#1 Awesome! You found a bug. Pretty easy right?');
-//   await page.getByRole('button', { name: 'Close' }).click();
-// });
-
-
-// test('test', async ({ page }) => {
-//   await page.goto('https://academybugs.com/find-bugs/');
-//   await page.getByRole('link', { name: 'Login for Pricing' }).click();
-//   await page.goto('https://academybugs.com/account/');
-//   await page.getByText('Не зарегистрированы? Нажмите кнопку ниже').click();
-//   await expect(page.locator('#bug-popup')).toContainText('What did you find out?');
-//   await page.getByText('× What did you find out? What').click();
-//   await page.locator('#close-popup').click();
-// });
-
-
-// test('test', async ({ page }) => {
-//   await page.goto('https://academybugs.com/find-bugs/');
-//   await page.getByRole('link', { name: 'Login for Pricing' }).click();
-//   await page.goto('https://academybugs.com/account/');
-//   await page.getByText('Password*').click();
-//   await expect(page.locator('#bug-popup')).toContainText('What did you find out?');
-//   await page.locator('#close-popup').click();
-// });

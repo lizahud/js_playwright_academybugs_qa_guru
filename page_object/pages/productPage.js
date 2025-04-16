@@ -3,6 +3,7 @@ export class ProductPage {
 		this.page = page;
         this.descriptionDetails = page.locator('#post-6190 form').getByText('Nam nec tellus a odio');
         this.orangColorButton = page.getByRole('img', { name: 'Orang' });
+		this.yelowColorButton = page.getByRole('img', { name: 'Yelow' });
         this.orangColorText = page.getByText('Orang');
         this.commentInputField = page.getByRole('textbox', { name: 'Comment' });
         this.nameInputField = page.getByRole('textbox', { name: 'Name*' });
@@ -19,6 +20,7 @@ export class ProductPage {
 		await this.descriptionDetails.click();
 	}
 	async chooseOrangProductColor() {
+		await this.page.reload();
 		await this.orangColorButton.click();
         await this.orangColorText.click();
 	}
@@ -40,6 +42,7 @@ export class ProductPage {
 		await this.xIcon.click();
 	}
     async selectEurCurrency() {
+		await this.page.reload();
 		await this.selectCurrency.selectOption('EUR');
 	}
     async clickSignInButton() {

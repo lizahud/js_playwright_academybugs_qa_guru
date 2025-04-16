@@ -5,9 +5,6 @@ export class AccountPage {
         this.accountPasswordLabel = page.getByText('Password*');
         this.accountSubheader = page.getByText('Не зарегистрированы? Нажмите кнопку ниже');
 	}
-    async open(url) {
-		await this.page.goto(url);
-	}
     async clickAccountSignInButton() {
 		await this.accountSignInButton.click();
 	}
