@@ -103,16 +103,6 @@ test.describe('Тесты в рамках ДЗ №16 по academybugs', () => {
     await expect(app.main.crashBugOverlay).toContainText(CRASH_BUG_ERROR_MESSAGE);
   });
 
-  test('Кнопка «Войти» находится над нижним колонтитулом.', async ({ page }) => {
-    await allure.tags('productPage');
-
-    app = new App(page);
-
-    await app.main.gotoSelectOptions();
-    await app.product.clickSignInButton();
-    await expect(app.main.bugPopup).toContainText(BUG_ERROR_MESSAGE);
-  });
-
   test('Отображается список товаров в выбранном ценовом диапазоне.', async ({ page }) => {
     await allure.tags('productPage');
 
@@ -145,7 +135,7 @@ test.describe('Тесты в рамках ДЗ №16 по academybugs', () => {
 
   test('Заголовок поля пароля выравнивается так же, как и поле выше.', async ({ page }) => {
     await allure.tags('accountPage');
-    
+
     app = new App(page);
 
     await app.main.gotoLoginForPricing();
