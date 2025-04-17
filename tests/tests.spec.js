@@ -1,3 +1,4 @@
+import * as allure from 'allure-js-commons';
 import { test, expect } from '@playwright/test';
 import { CommentBuilder } from '../page_object/helpers/builder/index';
 import { App } from '../page_object/pages/appPage';
@@ -10,7 +11,7 @@ const FIRST_BUG_ERROR_MESSAGE = '#1 Awesome! You found a bug. Pretty easy right?
 let app;
 
 
-test.describe('Тесты в рамках ДЗ №16 по academybugs.', () => {
+test.describe('Тесты в рамках ДЗ №16 по academybugs', () => {
 
 	test.beforeEach(async ({ page }) => {
     app = new App(page);
@@ -18,6 +19,8 @@ test.describe('Тесты в рамках ДЗ №16 по academybugs.', () => {
 	});
 
   test('Выбранное количество результатов отображается в соответствии с нажатыми кнопками.', async ({ page }) => {
+    await allure.tags('mainPage');
+
     app = new App(page);
 
     await app.main.clickNextPaginationPage();
@@ -25,6 +28,8 @@ test.describe('Тесты в рамках ДЗ №16 по academybugs.', () => {
   });
 
   test('Изображение продукта полностью заполняет поле, как и все остальные изображения продуктов.', async ({ page }) => {
+    await allure.tags('mainPage');
+
     app = new App(page);
 
     await app.main.clickImageProduct();
@@ -32,6 +37,8 @@ test.describe('Тесты в рамках ДЗ №16 по academybugs.', () => {
   });
 
   test('Краткое описание и описание продукта на английском языке.', async ({ page }) => {
+    await allure.tags('productPage');
+
     app = new App(page);
 
     await app.main.gotoSelectOptions();
@@ -40,6 +47,8 @@ test.describe('Тесты в рамках ДЗ №16 по academybugs.', () => {
   });
 
   test('Желтый и оранжевый цвета написаны правильно.', async ({ page }) => {
+    await allure.tags('productPage');
+
     app = new App(page);
 
     await app.main.gotoSelectOptions();
@@ -48,6 +57,8 @@ test.describe('Тесты в рамках ДЗ №16 по academybugs.', () => {
   });
 
   test('Комментарий размещается под продуктом.', async ({ page }) => {
+    await allure.tags('productPage');
+
     app = new App(page);
 
     const commentData = new CommentBuilder()
@@ -63,6 +74,8 @@ test.describe('Тесты в рамках ДЗ №16 по academybugs.', () => {
   });
 
   test('Ссылка на производителя показывает соответствующую страницу.', async ({ page }) => {
+    await allure.tags('productPage');
+
     app = new App(page);
 
     await app.main.gotoSelectOptions();
@@ -71,6 +84,8 @@ test.describe('Тесты в рамках ДЗ №16 по academybugs.', () => {
   });
 
   test('Значок Twitter должен перенаправлять пользователя в Twitter.', async ({ page }) => {
+    await allure.tags('productPage');
+
     app = new App(page);
 
     await app.main.gotoSelectOptions();
@@ -79,6 +94,8 @@ test.describe('Тесты в рамках ДЗ №16 по academybugs.', () => {
   });
 
   test('Валюта изменена, как и ожидалось.', async ({ page }) => {
+    await allure.tags('productPage');
+
     app = new App(page);
 
     await app.main.gotoSelectOptions();
@@ -87,6 +104,8 @@ test.describe('Тесты в рамках ДЗ №16 по academybugs.', () => {
   });
 
   test('Кнопка «Войти» находится над нижним колонтитулом.', async ({ page }) => {
+    await allure.tags('productPage');
+
     app = new App(page);
 
     await app.main.gotoSelectOptions();
@@ -95,6 +114,8 @@ test.describe('Тесты в рамках ДЗ №16 по academybugs.', () => {
   });
 
   test('Отображается список товаров в выбранном ценовом диапазоне.', async ({ page }) => {
+    await allure.tags('productPage');
+
     app = new App(page);
 
     await app.main.gotoSelectOptions();
@@ -103,6 +124,8 @@ test.describe('Тесты в рамках ДЗ №16 по academybugs.', () => {
   });
 
   test('Надпись кнопки «Войти» располагается по центру вертикально.', async ({ page }) => {
+    await allure.tags('accountPage');
+
     app = new App(page);
 
     await app.main.gotoLoginForPricing();
@@ -111,6 +134,8 @@ test.describe('Тесты в рамках ДЗ №16 по academybugs.', () => {
   });
 
   test('Текст в разделе «Новый пользователь» на английском языке.', async ({ page }) => {
+    await allure.tags('accountPage');
+
     app = new App(page);
 
     await app.main.gotoLoginForPricing();
@@ -119,6 +144,8 @@ test.describe('Тесты в рамках ДЗ №16 по academybugs.', () => {
   });
 
   test('Заголовок поля пароля выравнивается так же, как и поле выше.', async ({ page }) => {
+    await allure.tags('accountPage');
+    
     app = new App(page);
 
     await app.main.gotoLoginForPricing();
