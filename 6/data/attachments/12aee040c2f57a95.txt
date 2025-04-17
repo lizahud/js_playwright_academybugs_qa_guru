@@ -1,0 +1,249 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Тесты в рамках ДЗ №16 по academybugs >> Кнопка «Войти» находится над нижним колонтитулом.
+- Location: /home/runner/work/js_playwright_academybugs_qa_guru/js_playwright_academybugs_qa_guru/tests/tests.spec.js:106:7
+
+# Error details
+
+```
+Error: locator.click: Test timeout of 90000ms exceeded.
+Call log:
+  - waiting for getByRole('button', { name: 'SIGN IN' })
+    - locator resolved to <button type="button" class="ec_login_widget_button ec-widget-login">SIGN IN</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div role="dialog" id="cc-window" aria-live="polite" data-nosnippet="true" aria-label="cookieconsent" aria-describedby="cookieconsent:desc" class="cc-window cc-floating cc-type-opt-in cc-theme-minimal cc-bottom cc-right cc-color-override--123706181  cmplz-categories-no">…</div> intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div role="dialog" id="cc-window" aria-live="polite" data-nosnippet="true" aria-label="cookieconsent" aria-describedby="cookieconsent:desc" class="cc-window cc-floating cc-type-opt-in cc-theme-minimal cc-bottom cc-right cc-color-override--123706181  cmplz-categories-no">…</div> intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    168 × waiting for element to be visible, enabled and stable
+        - element is visible, enabled and stable
+        - scrolling into view if needed
+        - done scrolling
+        - <div role="dialog" id="cc-window" aria-live="polite" data-nosnippet="true" aria-label="cookieconsent" aria-describedby="cookieconsent:desc" class="cc-window cc-floating cc-type-opt-in cc-theme-minimal cc-bottom cc-right cc-color-override--123706181  cmplz-categories-no">…</div> intercepts pointer events
+      - retrying click action
+        - waiting 500ms
+
+    at ProductPage.clickSignInButton (/home/runner/work/js_playwright_academybugs_qa_guru/js_playwright_academybugs_qa_guru/page_object/pages/productPage.js:49:27)
+    at /home/runner/work/js_playwright_academybugs_qa_guru/js_playwright_academybugs_qa_guru/tests/tests.spec.js:112:23
+```
+
+# Page snapshot
+
+```yaml
+- dialog "cookieconsent":
+  - text: "We use cookies to optimize our website and our service:"
+  - link "Cookie Policy"
+  - button "Functional only"
+  - button "Accept cookies"
+- link "Skip to content"
+- banner:
+  - heading "AcademyBugs.com" [level=3]:
+    - link "AcademyBugs.com"
+  - navigation:
+    - list:
+      - listitem:
+        - link "Examples of Bugs"
+      - listitem:
+        - link "Types of Bugs"
+      - listitem:
+        - link "Find Bugs"
+      - listitem:
+        - link "Report Bugs"
+      - listitem:
+        - link ""
+- main:
+  - article:
+    - heading "Home / Shop / Fashion Type" [level=4]:
+      - link "Home"
+      - text: /
+      - link "Shop"
+      - text: /
+      - link "Fashion Type"
+    - img "Professional Suit"
+    - img "Professional Suit"
+    - img "Professional Suit"
+    - img "Professional Suit"
+    - img "Professional Suit"
+    - img "Professional Suit"
+    - heading "Home / Shop / Fashion Type" [level=4]:
+      - link "Home"
+      - text: /
+      - link "Shop"
+      - text: /
+      - link "Fashion Type"
+    - heading "Professional Suit" [level=1]
+    - text: "$279.95$239.95 Model Number: 3981370 Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit sed. Select Color"
+    - list:
+      - listitem:
+        - img "Blue"
+      - listitem:
+        - img "Orang"
+      - listitem:
+        - img "Pink"
+      - listitem:
+        - img "Green"
+      - listitem:
+        - img "Yelow"
+    - button "-"
+    - spinbutton: "1"
+    - button "+"
+    - button "ADD TO CART"
+    - text: "Your Price: $239.95 12 Left in Stock Categories:"
+    - link "Specials"
+    - text: "Manufacturer:"
+    - link "L4 Development"
+    - link "Facebook":
+      - img "Facebook"
+    - link "X":
+      - img "X"
+    - link "Email":
+      - img "Email"
+    - link "Pinterest":
+      - img "Pinterest"
+    - link "LinkedIn":
+      - img "LinkedIn"
+    - link "MySpace":
+      - img "MySpace"
+    - list:
+      - listitem: Description
+    - text: Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit sed.
+  - heading "Leave a Reply" [level=3]
+  - paragraph: Your email address will not be published. Required fields are marked *
+  - paragraph:
+    - textbox "Comment"
+  - paragraph:
+    - textbox "Name*"
+  - paragraph:
+    - textbox "Email*"
+  - paragraph:
+    - textbox "Website"
+  - paragraph:
+    - button "Post Comment"
+- heading "Select a Currency" [level=4]
+- combobox:
+  - option "USD" [selected]
+  - option "EUR"
+  - option "GBP"
+  - option "JPY"
+- heading "Product Search" [level=4]
+- combobox
+- button "Search"
+- heading "Hot Item" [level=4]
+- link:
+  - img
+- link "Silver Heart Bracelet"
+- text: $275.00
+- heading "Store Menu" [level=4]
+- list:
+  - listitem:
+    - link "All Items"
+  - listitem:
+    - link "Accessories [+]"
+  - listitem:
+    - link "Fashion Type [+]"
+  - listitem:
+    - link "Women's Pants"
+- heading "Filter by Price" [level=4]
+- link "$15.00 - $19.99 (1)"
+- link "$25.00 - $49.99 (2)"
+- link "$50.00 - $99.99 (3)"
+- link "$100.00 - $299.99 (11)"
+- link "Greater Than $299.99 (1)"
+- heading "Shopping Cart" [level=4]
+- link "Shopping Cart (0)"
+- heading "Your Account" [level=4]
+- text: Email Address*
+- textbox
+- text: Password*
+- textbox
+- paragraph:
+  - link "Sign Up"
+- button "SIGN IN"
+- contentinfo:
+  - list:
+    - listitem:
+      - link "uTest":
+        - img "uTest"
+    - listitem:
+      - link "Terms & Conditions"
+    - listitem:
+      - link "Privacy Policy"
+- link ""
+```
+
+# Test source
+
+```ts
+   1 | export class ProductPage {
+   2 | 	constructor(page) {
+   3 | 		this.page = page;
+   4 |         this.descriptionDetails = page.locator('#post-6190 form').getByText('Nam nec tellus a odio');
+   5 |         this.orangColorButton = page.getByRole('img', { name: 'Orang' });
+   6 | 		this.yelowColorButton = page.getByRole('img', { name: 'Yelow' });
+   7 |         this.orangColorText = page.getByText('Orang');
+   8 |         this.commentInputField = page.getByRole('textbox', { name: 'Comment' });
+   9 |         this.nameInputField = page.getByRole('textbox', { name: 'Name*' });
+  10 |         this.emailInputField = page.getByRole('textbox', { name: 'Email*' });
+  11 |         this.websiteInputField = page.getByRole('textbox', { name: 'Website' });
+  12 |         this.postCommentButton = page.getByRole('button', { name: 'Post Comment' });
+  13 |         this.manufacturerDetails = page.getByRole('link', { name: 'L4 Development' });
+  14 |         this.xIcon = page.getByRole('link', { name: 'X', exact: true });
+  15 |         this.selectCurrency = page.locator('#ec_currency_conversion');
+  16 |         this.signInButton = page.getByRole('button', { name: 'SIGN IN' });
+  17 |         this.filterBySmallPrice = page.getByRole('link', { name: '$15.00 - $19.99 (1)' });
+  18 | 	}
+  19 |     async clickDescriptionDetails() {
+  20 | 		await this.descriptionDetails.click();
+  21 | 	}
+  22 | 	async chooseOrangProductColor() {
+  23 | 		await this.page.reload();
+  24 | 		await this.orangColorButton.click();
+  25 |         await this.orangColorText.click();
+  26 | 	}
+  27 |     async createComment(comment, name, email, website) {
+  28 | 		await this.commentInputField.click();
+  29 | 		await this.commentInputField.fill(comment);
+  30 | 		await this.nameInputField.click();
+  31 | 		await this.nameInputField.fill(name);
+  32 | 		await this.emailInputField.click();
+  33 | 		await this.emailInputField.fill(email);
+  34 | 		await this.websiteInputField.click();
+  35 | 		await this.websiteInputField.fill(website);
+  36 | 		await this.postCommentButton.click();
+  37 | 	}
+  38 |     async clickManufacturerDetails() {
+  39 | 		await this.manufacturerDetails.click();
+  40 | 	}
+  41 |     async clickXIcon() {
+  42 | 		await this.xIcon.click();
+  43 | 	}
+  44 |     async selectEurCurrency() {
+  45 | 		await this.page.reload();
+  46 | 		await this.selectCurrency.selectOption('EUR');
+  47 | 	}
+  48 |     async clickSignInButton() {
+> 49 | 		await this.signInButton.click();
+     | 		                        ^ Error: locator.click: Test timeout of 90000ms exceeded.
+  50 | 	}
+  51 |     async clickFilterBySmallPrice() {
+  52 | 		await this.filterBySmallPrice.click();
+  53 | 	}
+  54 | }
+  55 |
+```
